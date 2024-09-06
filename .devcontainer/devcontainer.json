@@ -1,5 +1,8 @@
-{
-	"features": {
-    "ghcr.io/rocker-org/devcontainer-features/r-rig:1": {}
-  }
+{    
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+    	"ghcr.io/rocker-org/devcontainer-features/r-apt:0": {
+			"vscodeRSupport": "full"
+		}
+	}
 }
