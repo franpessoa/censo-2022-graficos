@@ -2,6 +2,7 @@ library(tidyverse)
 library(janitor)
 library(stringr)
 library(plotly)
+library(htmlwidgets)
 
 a <- read_csv("./dados/alfabetização-quilombos.csv") |> 
   janitor::clean_names() |> 
@@ -29,18 +30,19 @@ p <- a |> ggplot(aes(
   )) +
   geom_point() +
   coord_cartesian(xlim = c(75, 100), ylim = c(65,100)) +
-  expand_limits(x = 100, y = 100) + 
   labs(
     title = "Taxa de alfabetização nos estados vs nas comunidades quilombolas",
     x = "Porcentagem de alfabetizados no estado",
     y = "Porcentagem de alfabetizados nas comunidades quilombolas",
     size = "População",
-    color = "Tipo de Medida"
+    color = "Tipo de Medida",
   ) +
   theme_gray() +
   theme(
-    plot.title = element_text(face = "bold", size = 18)
+    plot.title = element_text(face = "bold")
   )
-
-ggplotly(p)
   
+ggsave("plots/alfabetização.png", plot = p, dpi = 450)
+p_i <- ggplotly(p)
+
+saveWidget(p_i, "plots/alfabetização/index.html")
